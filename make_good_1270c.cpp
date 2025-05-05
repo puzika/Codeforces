@@ -4,49 +4,25 @@ int main() {
   std::ios_base::sync_with_stdio(false);
   std::cin.tie(0), std::cout.tie(0);
 
-  int T;
-  std::cin >> T;
+  int t;
+  std::cin >> t;
 
-  for (; T > 0; T--) {
-    int n, k;
-    std::cin >> n >> k;
+  for (; t > 0; t--) {
+    int n;
+    std::cin >> n;
 
-    long long arr[n];
-    long long largest = -1;
+    long long sum = 0;
+    long long sumXOR = 0;
 
     for (int i = 0; i < n; i++) {
-      std::cin >> arr[i];
-      largest = std::max(arr[i], largest);
+      int x;
+      std::cin >> x;
+
+      sum += x;
+      sumXOR ^= x;
     }
 
-    long long curr = 1;
-
-    while (curr * k <= largest) {
-      curr *= k;
-    }
-
-    bool res = true;
-
-    while (res && curr > 0) {
-      int cnt = 0;
-
-      for (int i = 0; i < n && cnt < 2; i++) {
-        if (curr <= arr[i]) {
-          arr[i] -= curr;
-          cnt++;
-        }
-      }
-
-      res = (cnt <= 1);
-      curr /= k;
-    }
-
-    for (int i = 0; i < n && res; i++) {
-      res = arr[i] == 0;
-    }
-
-    if (res) std::cout << "YES" << '\n';
-    else std::cout << "NO" << '\n';
+    std::cout << 2 << '\n' << sumXOR << " " << sumXOR + sum << '\n';
   }
 
   return 0;
